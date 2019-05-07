@@ -1,5 +1,7 @@
 package main
 
+import "log"
+
 func binarySearch(array [11]int, value int) int {
 	low := 0
 	high := len(array) - 1
@@ -19,4 +21,10 @@ func binarySearch(array [11]int, value int) int {
 	}
 
 	return -1
+}
+
+func main() {
+	var array = [11]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+	index := binarySearch(array, 9)
+	log.Printf("Index %d", index)
 }

@@ -27,7 +27,7 @@ func insert(value int) {
 	tail = node
 }
 
-func runLinkedList() {
+func main() {
 	insert(1)
 	insert(2)
 	insert(3)
