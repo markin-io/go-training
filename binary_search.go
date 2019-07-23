@@ -2,6 +2,9 @@ package main
 
 import "log"
 
+// implement files i/o and tests
+// implement avg and worst cases https://en.wikipedia.org/wiki/Best,_worst_and_average_case#Data_structures
+
 func binarySearch(array [11]int, value int) int {
 	low := 0
 	high := len(array) - 1

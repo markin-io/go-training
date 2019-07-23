@@ -27,6 +27,10 @@ func insert(value int) {
 	tail = node
 }
 
+// remove
+// search
+// get for pos
+
 func main() {
 	insert(1)
 	insert(2)
