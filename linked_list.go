@@ -1,6 +1,10 @@
 package main
 
-import "log"
+import (
+	"log"
+	"os"
+	"strconv"
+)
 
 type Node struct {
 	value int
@@ -31,26 +35,96 @@ func insert(value int) {
 // search
 // get for pos
 
-func main() {
-	insert(1)
-	insert(2)
-	insert(3)
-	insert(4)
+func initialize() {
+	var data = ReadPipeInput()
+
+	for _, number := range data {
+		insert(number)
+	}
+
+	// currentNode := head
+
+	// log.Printf("Value %v", currentNode.value)
+	// for currentNode.next != nil {
+	// currentNode = currentNode.next
+	// log.Printf("Value %v", currentNode.value)
+	// }
+
+	// // Reversed order
+	// currentNode = tail
+	// log.Printf("Value rev %v", currentNode.value)
+	// for currentNode.prev != nil {
+	// 	currentNode = currentNode.prev
+	// 	log.Printf("Value rev %v", currentNode.value)
+	// }
+
+}
+
+func getItemAt(index int) *Node {
+	currentIndex := 0
+	var foundNode *Node
 
 	currentNode := head
-
-	log.Printf("Value %v", currentNode.value)
 	for currentNode.next != nil {
+		if currentIndex == index {
+			foundNode = currentNode
+		}
+
 		currentNode = currentNode.next
-		log.Printf("Value %v", currentNode.value)
+		currentIndex++
 	}
 
-	// Reversed order
-	currentNode = tail
-	log.Printf("Value rev %v", currentNode.value)
-	for currentNode.prev != nil {
-		currentNode = currentNode.prev
-		log.Printf("Value rev %v", currentNode.value)
+	return foundNode
+}
+
+func searchItem(value int) *Node {
+	var foundNode *Node
+
+	currentNode := head
+	for currentNode.next != nil {
+		if currentNode.value == value {
+			foundNode = currentNode
+			break
+		}
+
+		currentNode = currentNode.next
 	}
 
+	return foundNode
+}
+
+func removeItem(node *Node) {
+	node.prev.next = node.next
+	node = nil
+}
+
+func main() {
+	initialize()
+
+	// Searching
+	var searchFor, _ = strconv.Atoi(string(os.Args[2]))
+	item := searchItem(searchFor)
+	if item != nil {
+		log.Printf("Item with value %d found", searchFor)
+	} else {
+		log.Printf("Item with value %d not found", searchFor)
+	}
+
+	// Indexing
+	var searchAt, _ = strconv.Atoi(string(os.Args[1]))
+	item = getItemAt(searchAt)
+
+	if item != nil {
+		log.Printf("Item found at index %d has value %d", searchAt, item.value)
+	} else {
+		log.Printf("Item at index %d not found", searchAt)
+	}
+
+	// Removal
+	removeItem(item)
+	newItem := getItemAt(searchAt)
+
+	// Check whether new links set up correctly
+	log.Printf("Equal %v", item.prev.next == newItem)
+	item = nil
 }

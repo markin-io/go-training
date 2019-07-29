@@ -6,7 +6,6 @@ import (
 	"strconv"
 )
 
-// implement files i/o and tests
 // implement avg and worst cases https://en.wikipedia.org/wiki/Best,_worst_and_average_case#Data_structures
 
 func binarySearch(array []int, value int) int {
