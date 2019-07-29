@@ -1,11 +1,15 @@
 package main
 
-import "log"
+import (
+	"log"
+	"os"
+	"strconv"
+)
 
 // implement files i/o and tests
 // implement avg and worst cases https://en.wikipedia.org/wiki/Best,_worst_and_average_case#Data_structures
 
-func binarySearch(array [11]int, value int) int {
+func binarySearch(array []int, value int) int {
 	low := 0
 	high := len(array) - 1
 
@@ -27,7 +31,11 @@ func binarySearch(array [11]int, value int) int {
 }
 
 func main() {
-	var array = [11]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
-	index := binarySearch(array, 9)
+	var data = ReadPipeInput()
+
+	var toFind, _ = strconv.Atoi(string(os.Args[1]))
+	log.Printf("Search for %v", toFind)
+
+	index := binarySearch(data, toFind)
 	log.Printf("Index %d", index)
 }

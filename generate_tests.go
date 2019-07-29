@@ -7,8 +7,7 @@ import (
 )
 
 func main() {
-
-	file, err := os.Create("numbers.txt") // For read access.
+	file, err := os.Create("numbers") // For read access.
 	if err != nil {
 		log.Fatal(err)
 	}
