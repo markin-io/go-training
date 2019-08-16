@@ -9,21 +9,24 @@ func quickSort(array []int) []int {
 		return array
 	}
 
-	check := array[0]
+	check := array[len(array)/2]
 	less := []int{}
 	more := []int{}
+	checks := []int{}
 	for _, num := range array {
 		if num < check {
 			less = append(less, num)
 		} else if num > check {
 			more = append(more, num)
+		} else {
+			checks = append(checks, check)
 		}
 	}
 
 	less = quickSort(less)
 	more = quickSort(more)
 
-	less = append(less, check)
+	less = append(less, checks...)
 	return append(less, more...)
 }
 
