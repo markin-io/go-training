@@ -1,0 +1,36 @@
+package main
+
+import (
+	"log"
+)
+
+func quickSort(array []int) []int {
+	if len(array) < 2 {
+		return array
+	}
+
+	check := array[0]
+	less := []int{}
+	more := []int{}
+	for _, num := range array {
+		if num < check {
+			less = append(less, num)
+		} else if num > check {
+			more = append(more, num)
+		}
+	}
+
+	less = quickSort(less)
+	more = quickSort(more)
+
+	less = append(less, check)
+	return append(less, more...)
+}
+
+func main() {
+	var data = ReadPipeInput()
+
+	sorted := quickSort(data)
+
+	log.Printf("Sorted output %v", sorted)
+}
