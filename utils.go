@@ -5,10 +5,9 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"strconv"
 )
 
-func ReadPipeInput() []int {
+func ReadPipeInput() []string {
 	info, err := os.Stdin.Stat()
 	if err != nil {
 		panic(err)
@@ -16,12 +15,12 @@ func ReadPipeInput() []int {
 
 	if info.Mode()&os.ModeCharDevice != 0 || info.Size() <= 0 {
 		fmt.Println("The command is intended to work with pipes.")
-		fmt.Println("Usage: cat file | main")
+		fmt.Println("Usage: 'cat file | main' or 'main < file'")
 		return nil
 	}
 
 	reader := bufio.NewReader(os.Stdin)
-	var output []int
+	var output []string
 
 	for {
 		input, _, err := reader.ReadLine()
@@ -29,7 +28,7 @@ func ReadPipeInput() []int {
 			break
 		}
 
-		byteToInt, _ := strconv.Atoi(string(input))
+		byteToInt := string(input)
 		output = append(output, byteToInt)
 	}
 	return output
