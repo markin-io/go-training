@@ -53,7 +53,7 @@ func binarySearchRecursive(array []int, value int) int {
 }
 
 func main() {
-	var data = ReadPipeInput()
+	var data = ReadPipeInputInt()
 
 	var toFind, _ = strconv.Atoi(string(os.Args[1]))
 	log.Printf("Search for %d", toFind)

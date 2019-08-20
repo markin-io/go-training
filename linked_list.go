@@ -36,7 +36,7 @@ func insert(value int) {
 // get for pos
 
 func initialize() {
-	var data = ReadPipeInput()
+	var data = ReadPipeInputInt()
 
 	for _, number := range data {
 		insert(number)

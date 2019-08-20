@@ -90,7 +90,7 @@ func hashFunc(key string) int {
 
 func main() {
 	// Read array of random strings
-	var data = ReadPipeInput()
+	var data = ReadPipeInputString()
 
 	tableSize = len(data)
 

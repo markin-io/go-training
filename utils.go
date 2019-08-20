@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strconv"
 )
 
-func ReadPipeInput() []string {
+func createReader() *bufio.Reader {
 	info, err := os.Stdin.Stat()
 	if err != nil {
 		panic(err)
@@ -19,7 +20,12 @@ func ReadPipeInput() []string {
 		return nil
 	}
 
-	reader := bufio.NewReader(os.Stdin)
+	return bufio.NewReader(os.Stdin)
+}
+
+func ReadPipeInputString() []string {
+	reader := createReader()
+
 	var output []string
 
 	for {
@@ -29,6 +35,23 @@ func ReadPipeInput() []string {
 		}
 
 		byteToInt := string(input)
+		output = append(output, byteToInt)
+	}
+	return output
+}
+
+func ReadPipeInputInt() []int {
+	reader := createReader()
+
+	var output []int
+
+	for {
+		input, _, err := reader.ReadLine()
+		if err != nil && err == io.EOF {
+			break
+		}
+
+		byteToInt, _ := strconv.Atoi(string(input))
 		output = append(output, byteToInt)
 	}
 	return output

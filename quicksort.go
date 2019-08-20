@@ -31,7 +31,7 @@ func quickSort(array []int) []int {
 }
 
 func main() {
-	var data = ReadPipeInput()
+	var data = ReadPipeInputInt()
 
 	sorted := quickSort(data)
 
