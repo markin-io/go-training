@@ -2,24 +2,29 @@ package main
 
 import (
 	"hash/fnv"
-	"log"
 )
-
-var tableSize int
 
 type HashNode struct {
 	key   string
-	value int
+	value interface{}
 	next  *HashNode
 }
 
+type HashFunction func(string, int) int
+
 type HashTable struct {
-	table []*HashNode
+	table    []*HashNode
+	hashFunc HashFunction
 }
 
-func (e HashTable) add(key string, value int) {
+func (e HashTable) add(key string, value interface{}) {
+	var index int
 	// Calculate array index for specified key
-	index := hashFunc(key)
+	if e.hashFunc != nil {
+		index = e.hashFunc(key, len(e.table))
+	} else {
+		index = hashFunc(key, len(e.table))
+	}
 
 	// Check whether there's already node with the same key
 	existingNode := e.get(key)
@@ -46,7 +51,13 @@ func (e HashTable) add(key string, value int) {
 }
 
 func (e HashTable) get(key string) *HashNode {
-	index := hashFunc(key)
+	var index int
+	// Calculate array index for specified key
+	if e.hashFunc != nil {
+		index = e.hashFunc(key, len(e.table))
+	} else {
+		index = hashFunc(key, len(e.table))
+	}
 
 	node := e.table[index]
 
@@ -73,46 +84,11 @@ func (e HashTable) get(key string) *HashNode {
 	return nil
 }
 
-func createHashTable(size int) *HashTable {
-	return &HashTable{
-		table: make([]*HashNode, size),
-	}
-}
-
-func hashFunc(key string) int {
+func hashFunc(key string, size int) int {
 	h := fnv.New32a()
 	h.Write([]byte(key))
 	uint8Hash := (uint8)(h.Sum32())
 	normalizedHash := (float64)(uint8Hash) / 256
 
-	return (int)(normalizedHash * (float64)(tableSize))
-}
-
-func main() {
-	// Read array of random strings
-	var data = ReadPipeInputString()
-
-	tableSize = len(data)
-
-	// Initialize and fill hash table
-	hashTable := createHashTable(tableSize)
-	for index, key := range data {
-		hashTable.add(key, index)
-	}
-
-	// Check get functionality
-	for index, key := range data {
-		node := hashTable.get(key)
-		if node.value != index {
-			log.Printf("Hashtable missed value!")
-		}
-	}
-
-	// Check whether hashtable correctly replace values with the same key
-	hashTable.add("testKey", 1)
-	hashTable.add("testKey", 2)
-
-	if hashTable.get("testKey").value != 2 {
-		log.Printf("Incorrect replace!")
-	}
+	return (int)(normalizedHash * (float64)(size))
 }

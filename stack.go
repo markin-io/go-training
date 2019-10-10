@@ -1,40 +1,25 @@
 package main
 
-import "log"
-
-type Node struct {
-	value int
-	prev  *Node
+type StackNode struct {
+	value interface{}
+	prev  *StackNode
 }
 
-var tail *Node
+type Stack struct {
+	tail *StackNode
+}
 
-func push(value int) {
-	node := &Node{
+func (e *Stack) push(value interface{}) {
+	node := &StackNode{
 		value,
-		tail,
+		e.tail,
 	}
 
-	tail = node
+	e.tail = node
 }
 
-func pop() *Node {
-	node := tail
-	tail = tail.prev
+func (e *Stack) pop() *StackNode {
+	node := e.tail
+	e.tail = e.tail.prev
 	return node
-}
-
-func main() {
-	push(1)
-	push(2)
-	push(3)
-	push(4)
-
-	currentNode := pop()
-
-	log.Printf("Value %v", currentNode.value)
-	for currentNode.prev != nil {
-		currentNode = pop()
-		log.Printf("Value %v", currentNode.value)
-	}
 }
