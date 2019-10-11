@@ -38,10 +38,19 @@ func (e *Queue) pop() *QueueNode {
 func (e *Queue) print() {
 	currentNode := e.head
 
-	log.Println(currentNode.value)
+	var str string
+
+	str += currentNode.value.(string)
+
 	for currentNode.prev != nil {
 		currentNode = currentNode.prev
 
-		log.Println(currentNode.value)
+		str += " " + currentNode.value.(string)
 	}
+
+	log.Println(str)
+}
+
+func (e *Queue) isEmpty() bool {
+	return e.head == nil
 }
