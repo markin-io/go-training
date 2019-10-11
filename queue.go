@@ -1,5 +1,7 @@
 package main
 
+import "log"
+
 type QueueNode struct {
 	value interface{}
 	prev  *QueueNode
@@ -31,4 +33,15 @@ func (e *Queue) pop() *QueueNode {
 	node := e.head
 	e.head = e.head.prev
 	return node
+}
+
+func (e *Queue) print() {
+	currentNode := e.head
+
+	log.Println(currentNode.value)
+	for currentNode.prev != nil {
+		currentNode = currentNode.prev
+
+		log.Println(currentNode.value)
+	}
 }
