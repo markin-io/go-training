@@ -13,18 +13,36 @@ type HashNode struct {
 type HashFunction func(string, int) int
 
 type HashTable struct {
-	table    []*HashNode
-	hashFunc HashFunction
+	table        []*HashNode
+	hashFunction HashFunction
+}
+
+const defaultArraySize int = 127
+
+func defaultHashFunction(key string, size int) int {
+	h := fnv.New32a()
+	h.Write([]byte(key))
+	uint8Hash := (uint8)(h.Sum32())
+	normalizedHash := (float64)(uint8Hash) / 256
+
+	return (int)(normalizedHash * (float64)(size))
+}
+
+func CreateHashTable(hashFunction HashFunction) *HashTable {
+	if hashFunction == nil {
+		hashFunction = defaultHashFunction
+	}
+
+	return &HashTable{
+		table:        make([]*HashNode, defaultArraySize),
+		hashFunction: defaultHashFunction,
+	}
 }
 
 func (e HashTable) add(key string, value interface{}) {
 	var index int
 	// Calculate array index for specified key
-	if e.hashFunc != nil {
-		index = e.hashFunc(key, len(e.table))
-	} else {
-		index = hashFunc(key, len(e.table))
-	}
+	index = e.hashFunction(key, len(e.table))
 
 	// Check whether there's already node with the same key
 	existingNode := e.get(key)
@@ -53,11 +71,7 @@ func (e HashTable) add(key string, value interface{}) {
 func (e HashTable) get(key string) *HashNode {
 	var index int
 	// Calculate array index for specified key
-	if e.hashFunc != nil {
-		index = e.hashFunc(key, len(e.table))
-	} else {
-		index = hashFunc(key, len(e.table))
-	}
+	index = e.hashFunction(key, len(e.table))
 
 	node := e.table[index]
 
@@ -82,13 +96,4 @@ func (e HashTable) get(key string) *HashNode {
 	}
 
 	return nil
-}
-
-func hashFunc(key string, size int) int {
-	h := fnv.New32a()
-	h.Write([]byte(key))
-	uint8Hash := (uint8)(h.Sum32())
-	normalizedHash := (float64)(uint8Hash) / 256
-
-	return (int)(normalizedHash * (float64)(size))
 }

@@ -38,6 +38,10 @@ func (e *Queue) pop() *QueueNode {
 func (e *Queue) print() {
 	currentNode := e.head
 
+	if currentNode == nil {
+		return
+	}
+
 	var str string
 
 	str += currentNode.value.(string)
