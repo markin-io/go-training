@@ -11,7 +11,7 @@ type LinkedList struct {
 	tail *LinkedListNode
 }
 
-func (e *LinkedList) insert(value int) {
+func (e *LinkedList) Insert(value int) {
 	node := &LinkedListNode{
 		value,
 		nil,
@@ -27,7 +27,7 @@ func (e *LinkedList) insert(value int) {
 	e.tail = node
 }
 
-func (e *LinkedList) getItemAt(index int) *LinkedListNode {
+func (e *LinkedList) GetItemAt(index int) *LinkedListNode {
 	currentIndex := 0
 	var foundNode *LinkedListNode
 
@@ -44,7 +44,7 @@ func (e *LinkedList) getItemAt(index int) *LinkedListNode {
 	return foundNode
 }
 
-func (e *LinkedList) searchItem(value int) *LinkedListNode {
+func (e *LinkedList) SearchItem(value int) *LinkedListNode {
 	var foundNode *LinkedListNode
 
 	currentNode := e.head
@@ -60,7 +60,7 @@ func (e *LinkedList) searchItem(value int) *LinkedListNode {
 	return foundNode
 }
 
-func (e *LinkedList) removeItem(node *LinkedListNode) {
+func (e *LinkedList) RemoveItem(node *LinkedListNode) {
 	node.prev.next = node.next
 	node = nil
 }

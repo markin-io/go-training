@@ -11,12 +11,12 @@ func TestGet(t *testing.T) {
 	hashTable := CreateHashTable(nil)
 
 	for index, value := range strings {
-		hashTable.add(value, index)
+		hashTable.Add(value, index)
 	}
 
 	// Check get functionality
 	for index, key := range strings {
-		node := hashTable.get(key)
+		node := hashTable.Get(key)
 
 		if node.value != index {
 			t.Errorf("hashTable.get(%s).value == %d, wants %d", key, node.value, index)
@@ -27,10 +27,10 @@ func TestGet(t *testing.T) {
 func TestReplacement(t *testing.T) {
 	hashTable := CreateHashTable(nil)
 
-	hashTable.add("key", 1)
-	hashTable.add("key", 2)
+	hashTable.Add("key", 1)
+	hashTable.Add("key", 2)
 
-	value := hashTable.get("key").value
+	value := hashTable.Get("key").value
 	if value != 2 {
 		t.Errorf("hashTable.get(%s).value == %d, wants %d", "key", value, 2)
 	}

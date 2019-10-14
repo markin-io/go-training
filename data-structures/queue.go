@@ -2,17 +2,19 @@ package datastructures
 
 import "log"
 
+// QueueNode for Queue data structure implementation
 type QueueNode struct {
 	value interface{}
 	prev  *QueueNode
 }
 
+// Queue data structure implementation
 type Queue struct {
 	head *QueueNode
 	tail *QueueNode
 }
 
-func (e *Queue) push(value interface{}) {
+func (e *Queue) Push(value interface{}) {
 	node := &QueueNode{
 		value,
 		nil,
@@ -29,13 +31,13 @@ func (e *Queue) push(value interface{}) {
 	e.tail = node
 }
 
-func (e *Queue) pop() *QueueNode {
+func (e *Queue) Pop() *QueueNode {
 	node := e.head
 	e.head = e.head.prev
 	return node
 }
 
-func (e *Queue) print() {
+func (e *Queue) Print() {
 	currentNode := e.head
 
 	if currentNode == nil {
@@ -55,6 +57,6 @@ func (e *Queue) print() {
 	log.Println(str)
 }
 
-func (e *Queue) isEmpty() bool {
+func (e *Queue) IsEmpty() bool {
 	return e.head == nil
 }

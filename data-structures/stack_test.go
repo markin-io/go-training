@@ -10,14 +10,14 @@ func TestStack(t *testing.T) {
 	stack := Stack{}
 
 	for _, number := range numbers {
-		stack.push(number)
+		stack.Push(number)
 	}
 
 	currentNode := stack.tail
 
 	index := 0
 	for currentNode.prev != nil {
-		currentNode = stack.pop()
+		currentNode = stack.Pop()
 
 		number := numbers[len(numbers)-index-1]
 		if currentNode.value != number {

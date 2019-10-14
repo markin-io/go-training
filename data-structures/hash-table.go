@@ -39,13 +39,13 @@ func CreateHashTable(hashFunction HashFunction) *HashTable {
 	}
 }
 
-func (e HashTable) add(key string, value interface{}) {
+func (e HashTable) Add(key string, value interface{}) {
 	var index int
 	// Calculate array index for specified key
 	index = e.hashFunction(key, len(e.table))
 
 	// Check whether there's already node with the same key
-	existingNode := e.get(key)
+	existingNode := e.Get(key)
 
 	if existingNode == nil {
 		// Create new node
@@ -68,7 +68,7 @@ func (e HashTable) add(key string, value interface{}) {
 	}
 }
 
-func (e HashTable) get(key string) *HashNode {
+func (e HashTable) Get(key string) *HashNode {
 	var index int
 	// Calculate array index for specified key
 	index = e.hashFunction(key, len(e.table))

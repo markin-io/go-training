@@ -9,12 +9,12 @@ func TestSearch(t *testing.T) {
 
 	linkedList := LinkedList{}
 	for _, number := range numbers {
-		linkedList.insert(number)
+		linkedList.Insert(number)
 	}
 
 	numberToSearch := 3
 
-	item := linkedList.searchItem(numberToSearch)
+	item := linkedList.SearchItem(numberToSearch)
 
 	if item == nil {
 		t.Errorf("linkedList.search(%d) == nil", numberToSearch)
@@ -31,12 +31,12 @@ func TestIndexing(t *testing.T) {
 
 	linkedList := LinkedList{}
 	for _, number := range numbers {
-		linkedList.insert(number)
+		linkedList.Insert(number)
 	}
 
 	indexToGet := 0
 
-	item := linkedList.getItemAt(indexToGet)
+	item := linkedList.GetItemAt(indexToGet)
 
 	if item == nil {
 		t.Errorf("linkedList.getItemAt(%d) == nil", indexToGet)
@@ -53,14 +53,14 @@ func TestRemoval(t *testing.T) {
 
 	linkedList := LinkedList{}
 	for _, number := range numbers {
-		linkedList.insert(number)
+		linkedList.Insert(number)
 	}
 
 	indexToGet := 2
-	item := linkedList.getItemAt(indexToGet)
+	item := linkedList.GetItemAt(indexToGet)
 
-	linkedList.removeItem(item)
-	newItem := linkedList.getItemAt(indexToGet)
+	linkedList.RemoveItem(item)
+	newItem := linkedList.GetItemAt(indexToGet)
 
 	if item.prev.next != newItem {
 		t.Errorf("linkedList.removeItem() doesn't link left items correctly")

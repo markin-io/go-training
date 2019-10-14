@@ -9,7 +9,7 @@ type Stack struct {
 	tail *StackNode
 }
 
-func (e *Stack) push(value interface{}) {
+func (e *Stack) Push(value interface{}) {
 	node := &StackNode{
 		value,
 		e.tail,
@@ -18,7 +18,7 @@ func (e *Stack) push(value interface{}) {
 	e.tail = node
 }
 
-func (e *Stack) pop() *StackNode {
+func (e *Stack) Pop() *StackNode {
 	node := e.tail
 	e.tail = e.tail.prev
 	return node

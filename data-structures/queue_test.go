@@ -10,14 +10,14 @@ func TestQueue(t *testing.T) {
 	queue := Queue{}
 
 	for _, number := range numbers {
-		queue.push(number)
+		queue.Push(number)
 	}
 
 	currentNode := queue.head
 
 	index := 0
 	for currentNode.prev != nil {
-		currentNode = queue.pop()
+		currentNode = queue.Pop()
 
 		number := numbers[index]
 		if currentNode.value != number {
