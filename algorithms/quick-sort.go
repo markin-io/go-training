@@ -1,9 +1,5 @@
 package algorithms
 
-import (
-	"log"
-)
-
 func quickSort(array []int) []int {
 	if len(array) < 2 {
 		return array
@@ -28,12 +24,4 @@ func quickSort(array []int) []int {
 
 	less = append(less, checks...)
 	return append(less, more...)
-}
-
-func main() {
-	var data = ReadPipeInputInt()
-
-	sorted := quickSort(data)
-
-	log.Printf("Sorted output %v", sorted)
 }

@@ -1,44 +1,35 @@
 package algorithms
 
-import "log"
+import (
+	datastructures "github.com/markin-io/go-training/data-structures"
+)
 
-var checkedNames = CreateHashTable(nil)
+func bfs(graph *datastructures.HashTable, rootNode string, searchFor string) bool {
+	searchQueue := &datastructures.Queue{}
+	checkedNodes := datastructures.CreateHashTable(nil)
 
-func runBfs() {
-	graph := CreateHashTable(nil)
+	addNodesToSearchQueue(searchQueue, []string{rootNode}, checkedNodes)
 
-	// Build users graph
-	graph.add("you", []string{"alice", "bob", "claire"})
-	graph.add("bob", []string{"anuj", "peggy"})
-	graph.add("alice", []string{"peggy"})
-	graph.add("claire", []string{"tom", "jonny"})
-	graph.add("anuj", []string{})
-	graph.add("peggy", []string{"you"})
-	graph.add("tom", []string{})
-	graph.add("jonny", []string{})
-
-	// Find tom
-	searchQueue := &Queue{}
-	checkedNames.add("you", nil)
-	addNodesToSearchQueue(searchQueue, graph.get("you").value.([]string))
-	for searchQueue.isEmpty() != true {
-		searchQueue.print()
-		name := searchQueue.pop().value.(string)
-
-		if name == "tom" {
-			log.Println("Found tom")
-			return
+	for searchQueue.IsEmpty() != true {
+		searchQueue.Print()
+		name := searchQueue.Pop().Value.(string)
+		if name == searchFor {
+			return true
 		}
 
-		addNodesToSearchQueue(searchQueue, graph.get(name).value.([]string))
+		checkedNodes.Add(name, nil)
+
+		addNodesToSearchQueue(searchQueue, graph.Get(name).Value.([]string), checkedNodes)
 	}
+
+	return false
 }
 
-func addNodesToSearchQueue(queue *Queue, nodes []string) {
+func addNodesToSearchQueue(searchQueue *datastructures.Queue, nodes []string,
+	checkedNodes *datastructures.HashTable) {
 	for _, node := range nodes {
-		if checkedNames.get(node) == nil {
-			queue.push(node)
-			checkedNames.add(node, nil)
+		if checkedNodes.Get(node) == nil {
+			searchQueue.Push(node)
 		}
 	}
 }

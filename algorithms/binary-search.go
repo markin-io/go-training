@@ -1,11 +1,5 @@
 package algorithms
 
-import (
-	"log"
-	"os"
-	"strconv"
-)
-
 // implement avg and worst cases https://en.wikipedia.org/wiki/Best,_worst_and_average_case#Data_structures
 
 func binarySearch(array []int, value int) int {
@@ -50,16 +44,4 @@ func binarySearchRecursive(array []int, value int) int {
 	}
 
 	return -1
-}
-
-func main() {
-	var data = ReadPipeInputInt()
-
-	var toFind, _ = strconv.Atoi(string(os.Args[1]))
-	log.Printf("Search for %d", toFind)
-
-	searchIndex := binarySearch(data, toFind)
-	recursiveSearchIndex := binarySearchRecursive(data, toFind)
-
-	log.Printf("Index is %d and %d", searchIndex, recursiveSearchIndex)
 }
