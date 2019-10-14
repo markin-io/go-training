@@ -4,14 +4,14 @@ import "log"
 
 // QueueNode for Queue data structure implementation
 type QueueNode struct {
-	value interface{}
-	prev  *QueueNode
+	Value interface{}
+	Prev  *QueueNode
 }
 
 // Queue data structure implementation
 type Queue struct {
-	head *QueueNode
-	tail *QueueNode
+	Head *QueueNode
+	Tail *QueueNode
 }
 
 func (e *Queue) Push(value interface{}) {
@@ -20,25 +20,25 @@ func (e *Queue) Push(value interface{}) {
 		nil,
 	}
 
-	if e.head == nil {
-		e.head = node
+	if e.Head == nil {
+		e.Head = node
 	}
 
-	if e.tail != nil {
-		e.tail.prev = node
+	if e.Tail != nil {
+		e.Tail.Prev = node
 	}
 
-	e.tail = node
+	e.Tail = node
 }
 
 func (e *Queue) Pop() *QueueNode {
-	node := e.head
-	e.head = e.head.prev
+	node := e.Head
+	e.Head = e.Head.Prev
 	return node
 }
 
 func (e *Queue) Print() {
-	currentNode := e.head
+	currentNode := e.Head
 
 	if currentNode == nil {
 		return
@@ -46,17 +46,17 @@ func (e *Queue) Print() {
 
 	var str string
 
-	str += currentNode.value.(string)
+	str += currentNode.Value.(string)
 
-	for currentNode.prev != nil {
-		currentNode = currentNode.prev
+	for currentNode.Prev != nil {
+		currentNode = currentNode.Prev
 
-		str += " " + currentNode.value.(string)
+		str += " " + currentNode.Value.(string)
 	}
 
 	log.Println(str)
 }
 
 func (e *Queue) IsEmpty() bool {
-	return e.head == nil
+	return e.Head == nil
 }

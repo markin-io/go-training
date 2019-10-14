@@ -18,8 +18,8 @@ func TestGet(t *testing.T) {
 	for index, key := range strings {
 		node := hashTable.Get(key)
 
-		if node.value != index {
-			t.Errorf("hashTable.get(%s).value == %d, wants %d", key, node.value, index)
+		if node.Value != index {
+			t.Errorf("hashTable.get(%s).value == %d, wants %d", key, node.Value, index)
 		}
 	}
 }
@@ -30,7 +30,7 @@ func TestReplacement(t *testing.T) {
 	hashTable.Add("key", 1)
 	hashTable.Add("key", 2)
 
-	value := hashTable.Get("key").value
+	value := hashTable.Get("key").Value
 	if value != 2 {
 		t.Errorf("hashTable.get(%s).value == %d, wants %d", "key", value, 2)
 	}

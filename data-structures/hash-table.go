@@ -4,10 +4,12 @@ import (
 	"hash/fnv"
 )
 
+type HashNodeValue interface{}
+
 type HashNode struct {
-	key   string
-	value interface{}
-	next  *HashNode
+	Key   string
+	Value HashNodeValue
+	Next  *HashNode
 }
 
 type HashFunction func(string, int) int
@@ -39,7 +41,7 @@ func CreateHashTable(hashFunction HashFunction) *HashTable {
 	}
 }
 
-func (e HashTable) Add(key string, value interface{}) {
+func (e HashTable) Add(key string, value HashNodeValue) {
 	var index int
 	// Calculate array index for specified key
 	index = e.hashFunction(key, len(e.table))
@@ -50,8 +52,8 @@ func (e HashTable) Add(key string, value interface{}) {
 	if existingNode == nil {
 		// Create new node
 		node := &HashNode{
-			key:   key,
-			value: value,
+			Key:   key,
+			Value: value,
 		}
 
 		// Check whether nodes chain exists at specified index
@@ -59,12 +61,12 @@ func (e HashTable) Add(key string, value interface{}) {
 
 		// Assign new node as a chain head
 		if chainHead != nil {
-			node.next = chainHead
+			node.Next = chainHead
 		}
 
 		e.table[index] = node
 	} else {
-		existingNode.value = value
+		existingNode.Value = value
 	}
 }
 
@@ -78,13 +80,13 @@ func (e HashTable) Get(key string) *HashNode {
 	if node != nil {
 		var foundNode *HashNode
 
-		if node.key == key {
+		if node.Key == key {
 			foundNode = node
 		} else {
 			currentNode := node
-			for currentNode.next != nil {
-				currentNode = currentNode.next
-				if currentNode.key == key {
+			for currentNode.Next != nil {
+				currentNode = currentNode.Next
+				if currentNode.Key == key {
 					foundNode = currentNode
 					break
 				}

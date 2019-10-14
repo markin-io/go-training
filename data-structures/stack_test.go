@@ -13,15 +13,15 @@ func TestStack(t *testing.T) {
 		stack.Push(number)
 	}
 
-	currentNode := stack.tail
+	currentNode := stack.Tail
 
 	index := 0
-	for currentNode.prev != nil {
+	for currentNode.Prev != nil {
 		currentNode = stack.Pop()
 
 		number := numbers[len(numbers)-index-1]
-		if currentNode.value != number {
-			t.Errorf("stack.pop() == %d, want %d", currentNode.value, number)
+		if currentNode.Value != number {
+			t.Errorf("stack.pop() == %d, want %d", currentNode.Value, number)
 		}
 
 		index++

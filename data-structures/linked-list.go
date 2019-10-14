@@ -1,43 +1,43 @@
 package datastructures
 
 type LinkedListNode struct {
-	value int
-	next  *LinkedListNode
-	prev  *LinkedListNode
+	Value int
+	Next  *LinkedListNode
+	Prev  *LinkedListNode
 }
 
 type LinkedList struct {
-	head *LinkedListNode
-	tail *LinkedListNode
+	Head *LinkedListNode
+	Tail *LinkedListNode
 }
 
 func (e *LinkedList) Insert(value int) {
 	node := &LinkedListNode{
 		value,
 		nil,
-		e.tail,
+		e.Tail,
 	}
 
-	if e.head == nil {
-		e.head = node
+	if e.Head == nil {
+		e.Head = node
 	} else {
-		e.tail.next = node
+		e.Tail.Next = node
 	}
 
-	e.tail = node
+	e.Tail = node
 }
 
 func (e *LinkedList) GetItemAt(index int) *LinkedListNode {
 	currentIndex := 0
 	var foundNode *LinkedListNode
 
-	currentNode := e.head
-	for currentNode.next != nil {
+	currentNode := e.Head
+	for currentNode.Next != nil {
 		if currentIndex == index {
 			foundNode = currentNode
 		}
 
-		currentNode = currentNode.next
+		currentNode = currentNode.Next
 		currentIndex++
 	}
 
@@ -47,20 +47,20 @@ func (e *LinkedList) GetItemAt(index int) *LinkedListNode {
 func (e *LinkedList) SearchItem(value int) *LinkedListNode {
 	var foundNode *LinkedListNode
 
-	currentNode := e.head
-	for currentNode.next != nil {
-		if currentNode.value == value {
+	currentNode := e.Head
+	for currentNode.Next != nil {
+		if currentNode.Value == value {
 			foundNode = currentNode
 			break
 		}
 
-		currentNode = currentNode.next
+		currentNode = currentNode.Next
 	}
 
 	return foundNode
 }
 
 func (e *LinkedList) RemoveItem(node *LinkedListNode) {
-	node.prev.next = node.next
+	node.Prev.Next = node.Next
 	node = nil
 }

@@ -1,25 +1,25 @@
 package datastructures
 
 type StackNode struct {
-	value interface{}
-	prev  *StackNode
+	Value interface{}
+	Prev  *StackNode
 }
 
 type Stack struct {
-	tail *StackNode
+	Tail *StackNode
 }
 
 func (e *Stack) Push(value interface{}) {
 	node := &StackNode{
 		value,
-		e.tail,
+		e.Tail,
 	}
 
-	e.tail = node
+	e.Tail = node
 }
 
 func (e *Stack) Pop() *StackNode {
-	node := e.tail
-	e.tail = e.tail.prev
+	node := e.Tail
+	e.Tail = e.Tail.Prev
 	return node
 }

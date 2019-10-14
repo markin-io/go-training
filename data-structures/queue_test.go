@@ -13,15 +13,15 @@ func TestQueue(t *testing.T) {
 		queue.Push(number)
 	}
 
-	currentNode := queue.head
+	currentNode := queue.Head
 
 	index := 0
-	for currentNode.prev != nil {
+	for currentNode.Prev != nil {
 		currentNode = queue.Pop()
 
 		number := numbers[index]
-		if currentNode.value != number {
-			t.Errorf("queue.pop() == %d, want %d", currentNode.value, number)
+		if currentNode.Value != number {
+			t.Errorf("queue.pop() == %d, want %d", currentNode.Value, number)
 		}
 
 		index++
