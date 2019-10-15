@@ -2,6 +2,7 @@ package datastructures
 
 import (
 	"hash/fnv"
+	"log"
 )
 
 type HashNodeValue interface{}
@@ -41,7 +42,7 @@ func CreateHashTable(hashFunction HashFunction) *HashTable {
 	}
 }
 
-func (e HashTable) Add(key string, value HashNodeValue) {
+func (e *HashTable) Add(key string, value HashNodeValue) {
 	var index int
 	// Calculate array index for specified key
 	index = e.hashFunction(key, len(e.table))
@@ -70,7 +71,7 @@ func (e HashTable) Add(key string, value HashNodeValue) {
 	}
 }
 
-func (e HashTable) Get(key string) *HashNode {
+func (e *HashTable) Get(key string) *HashNode {
 	var index int
 	// Calculate array index for specified key
 	index = e.hashFunction(key, len(e.table))
@@ -98,4 +99,25 @@ func (e HashTable) Get(key string) *HashNode {
 	}
 
 	return nil
+}
+
+func printNode(headNode *HashNode) {
+	currentNode := &HashNode{
+		Key:   "",
+		Next:  headNode,
+		Value: nil,
+	}
+
+	for currentNode.Next != nil {
+		currentNode = currentNode.Next
+		log.Printf("Key %s, Value %v", currentNode.Key, currentNode.Value)
+	}
+}
+
+func (e *HashTable) Print() {
+	for _, headNode := range e.table {
+		if headNode != nil {
+			printNode(headNode)
+		}
+	}
 }

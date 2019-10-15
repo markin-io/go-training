@@ -1,25 +1,26 @@
 package datastructures
 
 import (
+	"strconv"
 	"testing"
 )
 
 func TestGet(t *testing.T) {
-	strings := []string{"one", "two", "three", "four", "five"}
 
 	// Initialize and fill hash table
 	hashTable := CreateHashTable(nil)
 
-	for index, value := range strings {
-		hashTable.Add(value, index)
+	for i := 0; i <= 1000; i++ {
+		hashTable.Add(strconv.Itoa(i), i)
 	}
 
 	// Check get functionality
-	for index, key := range strings {
+	for i := 0; i <= 1000; i++ {
+		key := strconv.Itoa(i)
 		node := hashTable.Get(key)
 
-		if node.Value != index {
-			t.Errorf("hashTable.get(%s).value == %d, wants %d", key, node.Value, index)
+		if node.Value != i {
+			t.Errorf("hashTable.get(%s).value == %d, wants %d", key, node.Value, i)
 		}
 	}
 }
