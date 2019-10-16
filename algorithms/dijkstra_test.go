@@ -7,42 +7,16 @@ import (
 )
 
 func TestDijkstra(t *testing.T) {
-	// graph := datastructures.CreateHashTable(nil)
-
-	// // Initialize nodes
-	// graph.Add("start", datastructures.CreateHashTable(nil))
-	// graph.Add("a", datastructures.CreateHashTable(nil))
-	// graph.Add("b", datastructures.CreateHashTable(nil))
-	// graph.Add("fin", datastructures.CreateHashTable(nil))
-
-	// // Add nodes neighbors
-	// graph.Get("start").Value.(*datastructures.HashTable).Add("a", 6.0)
-	// graph.Get("start").Value.(*datastructures.HashTable).Add("b", 2.0)
-
-	// graph.Get("a").Value.(*datastructures.HashTable).Add("fin", 1.0)
-	// graph.Get("b").Value.(*datastructures.HashTable).Add("a", 3.0)
-	// graph.Get("b").Value.(*datastructures.HashTable).Add("fin", 5.0)
-
-	// // Initialize costs
-	// costs := datastructures.CreateHashTable(nil)
-	// costs.Add("a", 6.0)
-	// costs.Add("b", 2.0)
-	// costs.Add("fin", math.Inf(1))
-
-	// cost, path := dijkstra(graph, costs, "start", "fin")
-
-	// log.Printf("Cost %v %v", cost, path)
-
 	graph := datastructures.CreateHashTable(nil)
 
 	nodeKeys := []string{"a", "b", "c", "d", "e", "f"}
 
+	// Create nodes
 	for _, key := range nodeKeys {
 		createNode(graph, key)
 	}
 
 	// Add nodes neighbors
-
 	addNeihgbor(graph.Get("a"), "b", 5.0)
 	addNeihgbor(graph.Get("a"), "c", 0.0)
 
@@ -55,10 +29,10 @@ func TestDijkstra(t *testing.T) {
 	addNeihgbor(graph.Get("d"), "f", 20.0)
 	addNeihgbor(graph.Get("e"), "f", 10.0)
 
+	cost, path := dijkstra(graph, "a", "f")
+
 	wantCost := 35.0
 	wantPath := []string{"f", "e", "b", "a"}
-
-	cost, path := dijkstra(graph, "a", "f")
 
 	if wantCost != cost {
 		t.Errorf("dijkstra error, incorrect cost %f, wants %f", cost, wantCost)
