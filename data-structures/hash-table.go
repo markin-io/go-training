@@ -101,23 +101,32 @@ func (e *HashTable) Get(key string) *HashNode {
 	return nil
 }
 
-func printNode(headNode *HashNode) {
-	currentNode := &HashNode{
-		Key:   "",
-		Next:  headNode,
-		Value: nil,
+func (e *HashTable) Keys() []string {
+	keys := []string{}
+
+	for _, headNode := range e.table {
+		if headNode != nil {
+			currentNode := &HashNode{
+				Key:   "",
+				Next:  headNode,
+				Value: nil,
+			}
+
+			for currentNode.Next != nil {
+				currentNode = currentNode.Next
+				keys = append(keys, currentNode.Key)
+			}
+		}
 	}
 
-	for currentNode.Next != nil {
-		currentNode = currentNode.Next
-		log.Printf("Key %s, Value %v", currentNode.Key, currentNode.Value)
-	}
+	return keys
 }
 
 func (e *HashTable) Print() {
-	for _, headNode := range e.table {
-		if headNode != nil {
-			printNode(headNode)
-		}
+	keys := e.Keys()
+
+	for _, key := range keys {
+		node := e.Get(key)
+		log.Printf("Key %s, Value %v", key, node.Value)
 	}
 }
